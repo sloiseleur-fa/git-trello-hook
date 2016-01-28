@@ -19,13 +19,12 @@ WEBHOOK_CONFIG = {
     'port': 7343
 }
 
-TRELLO_LIST = Lists(TRELLO_CONFIG['api_key'], TRELLO_CONFIG['oauth_token'])
 TRELLO_CARDS = Cards(TRELLO_CONFIG['api_key'], TRELLO_CONFIG['oauth_token'])
 
 
 @route("/")
 def index():
-    return 'git webhook for move trello cards'
+    return 'git webhook comment on commit on trello card'
 
 
 @route("/webhook", method='POST')
@@ -57,18 +56,16 @@ def handle_payload():
 
     print(cards_in_commit)
     print(cards_commit_dict)
-    if cards_in_commit:
-        from_cards = TRELLO_LIST.get_card(
-            TRELLO_CONFIG['list_id_in_progress'])
 
-        for card in from_cards:
-            if str(card['idShort']) in cards_in_commit:
-                commitForCard = cards_commit_dict[str(card['idShort'])]
-                for acommit in commitForCard:
-                    author = acommit['author']['name'].encode('utf-8')
-                    print(author)
-                    desc_with_commit = 'Commit by {0}\n{1}\n{2}'.format(author, acommit['message'].encode('utf-8'), acommit['url'])
-                    TRELLO_CARDS.new_action_comment(card['id'], desc_with_commit)
+    for card_id in cards_in_commit:
+        card = TRELLO_CARDS.get(card_id)
+        if card:
+            print(card)
+            commitForCard = cards_commit_dict[str(card['idShort'])]
+            for acommit in commitForCard:
+                author = acommit['author']['name'].encode('utf-8')
+                desc_with_commit = 'Commit by {0}\n{1}\n{2}'.format(author, acommit['message'].encode('utf-8'), acommit['url'])
+                TRELLO_CARDS.new_action_comment(card['id'], desc_with_commit)
 
     return "done"
 
