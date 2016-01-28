@@ -70,8 +70,8 @@ def handle_payload():
                 i = 0
                 while i < len(cards_msg_dict[str(card['idShort'])]):
                     desc_with_commit = '{0}\n{1}'.format(cards_msg_dict[str(card['idShort'])][i], cards_url_dict[str(card['idShort'])][i])
-
                     TRELLO_CARDS.new_action_comment(card['id'], desc_with_commit)
+                    i = i+1
 
     return "done"
 
