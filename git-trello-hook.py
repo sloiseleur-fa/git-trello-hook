@@ -41,8 +41,7 @@ def handle_payload():
     print(json_payload)
     commits = json_payload['commits']
     cards_in_commit = []
-    cards_url_dict = {}
-    cards_msg_dict = {}
+    cards_commit_dict = {}
     card_pattern = '(\[)(#)([0-9]+)(\])'
 
     print(commits)
@@ -51,16 +50,13 @@ def handle_payload():
             card_pattern, commit['message'], flags=re.IGNORECASE)
         for result in results:
             cards_in_commit.append(result[2])
-            if result[2] in cards_url_dict:
-                cards_url_dict[result[2]].append(commit['url'])
-                cards_msg_dict[result[2]].append(commit['message'])
+            if result[2] in cards_commit_dict:
+                cards_commit_dict[result[2]].append(commit)
             else:
-                cards_url_dict[result[2]] = [commit['url']]
-                cards_msg_dict[result[2]] = [commit['message']]
+                cards_commit_dict[result[2]] = [commit]
 
     print(cards_in_commit)
-    print(cards_url_dict)
-    print(cards_msg_dict)
+    print(cards_commit_dict)
     if cards_in_commit:
         from_cards = TRELLO_LIST.get_card(
             TRELLO_CONFIG['list_id_in_progress'])
@@ -68,8 +64,9 @@ def handle_payload():
         for card in from_cards:
             if str(card['idShort']) in cards_in_commit:
                 i = 0
-                while i < len(cards_msg_dict[str(card['idShort'])]):
-                    desc_with_commit = '{0}\n{1}'.format(cards_msg_dict[str(card['idShort'])][i], cards_url_dict[str(card['idShort'])][i])
+                while i < len(cards_commit_dict[str(card['idShort'])]):
+                    commit = cards_commit_dict[str(card['idShort'])][i]
+                    desc_with_commit = 'Commit by {0}\n{2}\n{3}'.format(commit['author']['name'], commit['message'], commit['url'])
                     TRELLO_CARDS.new_action_comment(card['id'], desc_with_commit)
                     i = i+1
 
