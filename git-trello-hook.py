@@ -51,8 +51,15 @@ def handle_payload():
             card_pattern, commit['message'], flags=re.IGNORECASE)
         for result in results:
             cards_in_commit.append(result[2])
-            cards_url_dict[result[2]] = commit['url']
-            cards_msg_dict[result[2]] = commit['message']
+            if cards_url_dict[result[2]]:
+                cards_url_dict[result[2]].append(commit['url'])
+            else:
+                cards_url_dict[result[2]] = [commit['url']]
+
+            if cards_msg_dict[result[2]]:
+                cards_msg_dict[result[2]].append(commit['url'])
+            else:
+                cards_msg_dict[result[2]] = [commit['message']]
 
     print(cards_in_commit)
     print(cards_url_dict)
@@ -63,9 +70,11 @@ def handle_payload():
 
         for card in from_cards:
             if str(card['idShort']) in cards_in_commit:
-                desc_with_commit = '{0}\n{1}'.format(cards_msg_dict[str(card['idShort'])], cards_url_dict[str(card['idShort'])])
+                i = 0
+                while i < len(cards_msg_dict[str(card['idShort'])]):
+                    desc_with_commit = '{0}\n{1}'.format(cards_msg_dict[str(card['idShort'])][i], cards_url_dict[str(card['idShort'])][i])
 
-                TRELLO_CARDS.new_action_comment(card['id'], desc_with_commit)
+                    TRELLO_CARDS.new_action_comment(card['id'], desc_with_commit)
 
     return "done"
 
