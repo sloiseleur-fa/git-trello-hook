@@ -7,9 +7,9 @@ import re
 import json
 
 TRELLO_CONFIG = {
-    'api_key': 'cff1385e29ea0ddff0a36d0faef6a1fe',
-    'oauth_token': '1607a16ab4ed2f51751179bd5b249e59ccd361e38a662656ccef0c5b3870f5fa',
-    'board_id': 'ZcIBTf5i'
+    'api_key': 'API_KEY',
+    'oauth_token': 'TOKEN',
+    'board_id': 'BOARD_ID'
 }
 
 WEBHOOK_CONFIG = {
