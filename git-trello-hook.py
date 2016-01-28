@@ -45,6 +45,7 @@ def handle_payload():
     cards_msg_dict = {}
     card_pattern = '(\[)(#)([0-9]+)(\])'
 
+    print(commits)
     for commit in commits:
         results = re.findall(
             card_pattern, commit['message'], flags=re.IGNORECASE)
