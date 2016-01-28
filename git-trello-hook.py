@@ -51,14 +51,11 @@ def handle_payload():
             card_pattern, commit['message'], flags=re.IGNORECASE)
         for result in results:
             cards_in_commit.append(result[2])
-            if cards_url_dict[result[2]]:
+            if result[2] in cards_url_dict:
                 cards_url_dict[result[2]].append(commit['url'])
-            else:
-                cards_url_dict[result[2]] = [commit['url']]
-
-            if cards_msg_dict[result[2]]:
                 cards_msg_dict[result[2]].append(commit['url'])
             else:
+                cards_url_dict[result[2]] = [commit['url']]
                 cards_msg_dict[result[2]] = [commit['message']]
 
     print(cards_in_commit)
