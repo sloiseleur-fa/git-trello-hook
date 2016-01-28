@@ -7,11 +7,11 @@ import re
 import json
 
 TRELLO_CONFIG = {
-    'api_key': 'TRELLO_API_KEY',
-    'oauth_token': 'TRELLO_OAUTH_TOKEN_FOR_BOARD',
-    'board_id': 'BOARD_ID',
-    'list_id_in_progress': 'LIST_ID',
-    'list_id_done': 'LIST_ID',
+    'api_key': 'cff1385e29ea0ddff0a36d0faef6a1fe',
+    'oauth_token': '1607a16ab4ed2f51751179bd5b249e59ccd361e38a662656ccef0c5b3870f5fa',
+    'board_id': 'ZcIBTf5i',
+    'list_id_in_progress': '56a9d3ac7a688d41c24cbd38',
+    'list_id_done': '56a9d3b0c0f71152ab6c651e',
 }
 
 WEBHOOK_CONFIG = {
