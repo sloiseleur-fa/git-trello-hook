@@ -53,7 +53,7 @@ def handle_payload():
             cards_in_commit.append(result[2])
             if result[2] in cards_url_dict:
                 cards_url_dict[result[2]].append(commit['url'])
-                cards_msg_dict[result[2]].append(commit['url'])
+                cards_msg_dict[result[2]].append(commit['message'])
             else:
                 cards_url_dict[result[2]] = [commit['url']]
                 cards_msg_dict[result[2]] = [commit['message']]
