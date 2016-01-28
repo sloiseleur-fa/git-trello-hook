@@ -63,13 +63,12 @@ def handle_payload():
 
         for card in from_cards:
             if str(card['idShort']) in cards_in_commit:
-                i = 0
-                while i < len(cards_commit_dict[str(card['idShort'])]):
-                    commit = cards_commit_dict[str(card['idShort'])][i]
-                    print(commit['author']['name'].encode('utf-8'))
-                    desc_with_commit = 'Commit by {0}\n{2}\n{3}'.format(commit['author']['name'].encode('utf-8'), commit['message'].encode('utf-8'), commit['url'])
+                commitForCard = cards_commit_dict[str(card['idShort'])]
+                for acommit in commitForCard:
+                    author = acommit['author']['name'].encode('utf-8')
+                    print(author)
+                    desc_with_commit = 'Commit by {0}\n{2}\n{3}'.format(author, acommit['message'].encode('utf-8'), acommit['url'])
                     TRELLO_CARDS.new_action_comment(card['id'], desc_with_commit)
-                    i = i+1
 
     return "done"
 
