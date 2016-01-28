@@ -9,9 +9,7 @@ A github/gitlab webhook script written by python inspired by ruby gem [git-trell
     TRELLO_CONFIG = {
         'api_key': 'TRELLO_API_KEY',
         'oauth_token': 'TRELLO_OAUTH_TOKEN_FOR_BOARD',
-        'board_id': 'BOARD_ID',
-        'list_id_in_progress': 'LIST_ID',
-        'list_id_done': 'LIST_ID',
+        'board_id': 'BOARD_ID'
     }
 
     WEBHOOK_CONFIG = {
@@ -26,7 +24,7 @@ A github/gitlab webhook script written by python inspired by ruby gem [git-trell
     $git commit -a -m "Fix [#1]"
     $git push
 
-    # git-trello will move Card #1(View Card, Card index is on the right bottom corner) from `list_id_in_progress` to `list_id_done` and append with your git commit url.
+    # git-trello will add a comment to the card with the commit author, message and url
 
 ###`API_KEY`
 https://trello.com/1/appKey/generate
@@ -46,21 +44,6 @@ then you should type in "git-trello".
 ###`TRELLO_BOARD_ID`
 It is the end of the URL when viewing the board. For example, for https://trello.com/b/XLvlTFVA/git-trello, board_id is XLvlTFVA.
 
-###`LIST_ID_IN_PROGRESS and LIST_ID_IN_DONE`
-List IDs seem to be a (board id + list index), where all are treated as hex numbers. However, this is undocumented.
-
-Safe way to find a list ID is to open a card from the list, click the More link in the bottom-right corner, select Export JSON and find the idList.
-
-Post receive will move all referenced cards to the LIST_ID_IN_PROGRESS, unless they are referenced by Close or Fix word, in which case it will move them to the LIST_ID_IN_DONE.
-
-#Examples
-
-Example [Trello board](https://trello.com/b/Yl6AN4Pj/git-trello-test)
-Example [git repo](https://github.com/hewigovens/git-trello-test)
-
-#TODOs
-* easy configuration
-* easy deployment
 
 #Credits
 
