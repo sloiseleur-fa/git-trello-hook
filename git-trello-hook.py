@@ -67,7 +67,7 @@ def handle_payload():
                 for acommit in commitForCard:
                     author = acommit['author']['name'].encode('utf-8')
                     print(author)
-                    desc_with_commit = 'Commit by {0}\n{2}\n{3}'.format(author, acommit['message'].encode('utf-8'), acommit['url'])
+                    desc_with_commit = 'Commit by {0}\n{1}\n{2}'.format(author, acommit['message'].encode('utf-8'), acommit['url'])
                     TRELLO_CARDS.new_action_comment(card['id'], desc_with_commit)
 
     return "done"
