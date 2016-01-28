@@ -67,7 +67,7 @@ def handle_payload():
                 while i < len(cards_commit_dict[str(card['idShort'])]):
                     commit = cards_commit_dict[str(card['idShort'])][i]
                     print(commit['author']['name'])
-                    desc_with_commit = 'Commit by {0}\n{2}\n{3}'.format(commit['author']['name'], commit['message'], commit['url'])
+                    desc_with_commit = 'Commit by {0}\n{2}\n{3}'.format(commit['author']['name'], commit['message'], commit['url']).encode('utf-8')
                     TRELLO_CARDS.new_action_comment(card['id'], desc_with_commit)
                     i = i+1
 
