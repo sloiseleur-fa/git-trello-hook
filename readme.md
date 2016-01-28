@@ -48,3 +48,4 @@ It is the end of the URL when viewing the board. For example, for https://trello
 #Credits
 
 [git-trello](https://github.com/zmilojko/git-trello)
+[git-trello-hook](https://github.com/hewigovens/git-trello-hook)
