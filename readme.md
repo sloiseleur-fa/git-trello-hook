@@ -23,7 +23,7 @@ A github/gitlab webhook script written by python inspired by ruby gem [git-trell
     e.g. For heroku deployment, add url https://git-trello-test.herokuapp.com/webhook
     e.g. For self hosting, add url https://your-ip-address:port/webhook
 
-    $git commit -a -m "Fix [card #1]"
+    $git commit -a -m "Fix [#1]"
     $git push
 
     # git-trello will move Card #1(View Card, Card index is on the right bottom corner) from `list_id_in_progress` to `list_id_done` and append with your git commit url.
